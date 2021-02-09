@@ -1,5 +1,7 @@
 # Creating virtual private endpoints with terraform
 
+This sample shows how to provision virtual private endpoint gateways from terraform.
+
 ![Architecture](./architecture.png)
 
 ## Deploy all resources
@@ -16,7 +18,7 @@
    terraform apply
    ```
 
-## Test VPE
+## Test virtual private endpoints
 
 The script `lookup.sh` iterates over all provisioned virtual server instances and does a `dig` to resolve the IP addresses of Redis, Object Storage and Key Protect.
 
