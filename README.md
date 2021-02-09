@@ -24,41 +24,28 @@ The script `lookup.sh` iterates over all provisioned virtual server instances an
 
 In the first `apply`, VPE is not yet enabled, only cloud service endpoints are.
 
-1. Run `./lookup.sh` to show how the virtual server instances are resolving endpoints.
-   
-   Here is an excerpt for the first instance:
-   ```
-   >>> vpe-example-instance-1 ->  ()
-     >>> redis (123456.private.databases.appdomain.cloud)
-       123456.private.databases.appdomain.cloud. 33 IN CNAME icd-prod-us-south-db-345003.us-south.serviceendpoint.cloud.ibm.com.
-       icd-prod-us-south-db-345003.us-south.serviceendpoint.cloud.ibm.com. 88 IN A 166.9.16.209
-       icd-prod-us-south-db-345003.us-south.serviceendpoint.cloud.ibm.com. 88 IN A 166.9.12.208
-       icd-prod-us-south-db-345003.us-south.serviceendpoint.cloud.ibm.com. 88 IN A 166.9.15.93
-     >>> cos (s3.direct.us-south.cloud-object-storage.appdomain.cloud)
-       s3.direct.us-south.cloud-object-storage.appdomain.cloud. 147 IN	A 161.26.0.34
-     >>> kms (private.us-south.kms.cloud.ibm.com)
-       private.us-south.kms.cloud.ibm.com. 59 IN A	166.9.251.3
-       private.us-south.kms.cloud.ibm.com. 59 IN A	166.9.250.227
-       private.us-south.kms.cloud.ibm.com. 59 IN A	166.9.250.195
-   ```
+1. Run `./lookup.sh` to show how the virtual server instances are resolving endpoints. Here is an excerpt for the first instance:
+
+   | Source | Destination | Resolved IPs |
+   | ------ | ----------- | ------------ |
+   | vpe-example-instance-1 | redis (123456.private.databases.appdomain.cloud) |  166.9.16.93,166.9.12.115,166.9.14.76 |
+   | vpe-example-instance-1 | cos (s3.direct.us-south.cloud-object-storage.appdomain.cloud) |  161.26.0.34 |
+   | vpe-example-instance-1 | kms (private.us-south.kms.cloud.ibm.com) |  166.9.250.227,166.9.250.195,166.9.251.3 |
+
 1. Edit `terraform.tfvars`, add `use_vpe = true` and save.
 1. Apply `terraform` again:
    ```
    terraform apply
    ```
-1. After a short while, run `./lookup.sh` again to see the VPE Reserved IPs allocated to the services.
- 
-   Here is an excerpt for the first instance:
-   ```
-   >>> vpe-example-instance-1
-     >>> redis (123456.private.databases.appdomain.cloud)
-       123456.private.databases.appdomain.cloud. 900 IN	A 10.20.10.19
-     >>> cos (s3.direct.us-south.cloud-object-storage.appdomain.cloud)
-       s3.direct.us-south.cloud-object-storage.appdomain.cloud. 900 IN	A 10.20.10.21
-     >>> kms (private.us-south.kms.cloud.ibm.com)
-       private.us-south.kms.cloud.ibm.com. 900	IN A	10.20.10.20
-   ```
-   Notice how the hostnames now resolve to private IPs within the VPC.
+1. After a short while, run `./lookup.sh` again to see the VPE Reserved IPs allocated to the services. Here is an excerpt for the first instance:
+
+   | Source | Destination | Resolved IPs |
+   | ------ | ----------- | ------------ |
+   | vpe-example-instance-1 | redis (123456.private.databases.appdomain.cloud) |  10.20.10.9 |
+   | vpe-example-instance-1 | cos (s3.direct.us-south.cloud-object-storage.appdomain.cloud) |  10.20.10.10 |
+   | vpe-example-instance-1 | kms (private.us-south.kms.cloud.ibm.com) |  10.20.10.8 |
+
+   **Notice how the hostnames now resolve to private IPs within the VPC.**
 
 ## Destroy all configuration
 
