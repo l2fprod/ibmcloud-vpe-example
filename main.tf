@@ -208,7 +208,7 @@ resource "ibm_database" "redis" {
 resource "ibm_resource_key" "redis_key" {
   name                 = "${var.basename}-redis-key"
   resource_instance_id = ibm_database.redis.id
-  role                 = "Reader"
+  role                 = "Viewer"
 }
 
 locals {
