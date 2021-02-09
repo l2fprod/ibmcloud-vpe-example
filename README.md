@@ -27,8 +27,8 @@ In the first `apply`, VPE is not yet enabled, only cloud service endpoints are.
    Here is an excerpt for the first instance:
    ```
    >>> vpe-example-instance-1 ->  ()
-     >>> redis (710f59d9-b0ad-4a1e-847e-ab0c4e195051.6131b73286f34215871dfad7254b4f7d.private.databases.appdomain.cloud)
-       710f59d9-b0ad-4a1e-847e-ab0c4e195051.6131b73286f34215871dfad7254b4f7d.private.databases.appdomain.cloud. 33 IN CNAME icd-prod-us-south-db-345003.us-south.serviceendpoint.cloud.ibm.com.
+     >>> redis (123456.private.databases.appdomain.cloud)
+       123456.private.databases.appdomain.cloud. 33 IN CNAME icd-prod-us-south-db-345003.us-south.serviceendpoint.cloud.ibm.com.
        icd-prod-us-south-db-345003.us-south.serviceendpoint.cloud.ibm.com. 88 IN A 166.9.16.209
        icd-prod-us-south-db-345003.us-south.serviceendpoint.cloud.ibm.com. 88 IN A 166.9.12.208
        icd-prod-us-south-db-345003.us-south.serviceendpoint.cloud.ibm.com. 88 IN A 166.9.15.93
@@ -49,14 +49,14 @@ In the first `apply`, VPE is not yet enabled, only cloud service endpoints are.
    Here is an excerpt for the first instance:
    ```
    >>> vpe-example-instance-1
-     >>> redis (710f59d9-b0ad-4a1e-847e-ab0c4e195051.6131b73286f34215871dfad7254b4f7d.private.databases.appdomain.cloud)
-       710f59d9-b0ad-4a1e-847e-ab0c4e195051.6131b73286f34215871dfad7254b4f7d.private.databases.appdomain.cloud. 900 IN	A 10.20.10.19
+     >>> redis (123456.private.databases.appdomain.cloud)
+       123456.private.databases.appdomain.cloud. 900 IN	A 10.20.10.19
      >>> cos (s3.direct.us-south.cloud-object-storage.appdomain.cloud)
        s3.direct.us-south.cloud-object-storage.appdomain.cloud. 900 IN	A 10.20.10.21
      >>> kms (private.us-south.kms.cloud.ibm.com)
        private.us-south.kms.cloud.ibm.com. 900	IN A	10.20.10.20
    ```
-   Note the 10.20.10.x IPs in the output here.
+   Notice how the hostnames now resolve to private IPs within the VPC.
 
 ## Destroy all configuration
 
