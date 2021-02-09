@@ -28,9 +28,9 @@ In the first `apply`, VPE is not yet enabled, only cloud service endpoints are.
 
    | Source | Destination | Resolved IPs |
    | ------ | ----------- | ------------ |
-   | vpe-example-instance-1 | redis (123456.private.databases.appdomain.cloud) |  166.9.16.93,166.9.12.115,166.9.14.76 |
-   | vpe-example-instance-1 | cos (s3.direct.us-south.cloud-object-storage.appdomain.cloud) |  161.26.0.34 |
-   | vpe-example-instance-1 | kms (private.us-south.kms.cloud.ibm.com) |  166.9.250.227,166.9.250.195,166.9.251.3 |
+   | vpe-example-instance-1 | redis (123456.private.databases.appdomain.cloud) | 166.9.16.93, 166.9.12.115, 166.9.14.76 |
+   | vpe-example-instance-1 | cos (s3.direct.us-south.cloud-object-storage.appdomain.cloud) | 161.26.0.34 |
+   | vpe-example-instance-1 | kms (private.us-south.kms.cloud.ibm.com) | 166.9.250.227, 166.9.250.195, 166.9.251.3 |
 
 1. Edit `terraform.tfvars`, add `use_vpe = true` and save.
 1. Apply `terraform` again:
@@ -41,9 +41,9 @@ In the first `apply`, VPE is not yet enabled, only cloud service endpoints are.
 
    | Source | Destination | Resolved IPs |
    | ------ | ----------- | ------------ |
-   | vpe-example-instance-1 | redis (123456.private.databases.appdomain.cloud) |  10.20.10.9 |
-   | vpe-example-instance-1 | cos (s3.direct.us-south.cloud-object-storage.appdomain.cloud) |  10.20.10.10 |
-   | vpe-example-instance-1 | kms (private.us-south.kms.cloud.ibm.com) |  10.20.10.8 |
+   | vpe-example-instance-1 | redis (123456.private.databases.appdomain.cloud) | 10.20.10.9 |
+   | vpe-example-instance-1 | cos (s3.direct.us-south.cloud-object-storage.appdomain.cloud) | 10.20.10.10 |
+   | vpe-example-instance-1 | kms (private.us-south.kms.cloud.ibm.com) | 10.20.10.8 |
 
    **Notice how the hostnames now resolve to private IPs within the VPC.**
 

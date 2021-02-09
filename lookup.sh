@@ -10,7 +10,7 @@ for index in "${!instanceIps[@]}"; do
   instanceName=${instanceNames[index]}
   for service in "${serviceNames[@]}"; do
     host_to_resolve=$(terraform output -json endpoints | jq -r '.[] | select(.name=="'${service}'") | .hostname')
-    echo -n "| $instanceName | $service ($host_to_resolve) | "
+    echo -n "| $instanceName | $service ($host_to_resolve) |"
     ips=$(ssh -q -t -i generated_key_rsa -o "StrictHostKeyChecking=no" root@$instanceIp << EOF
     yum install -y bind-utils >/dev/null
     dig +short $host_to_resolve | grep '^[.0-9]*$' | paste -s -d, -
