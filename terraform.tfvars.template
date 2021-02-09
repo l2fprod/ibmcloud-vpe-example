@@ -1,0 +1,12 @@
+# IBM Cloud API key.
+ibmcloud_api_key = ""
+
+# Region where to deploy resources.
+region           = "us-south"
+
+# Name of an existing SSH key to inject in the created instances.
+# Leave empty to use the generated SSH key.
+vpc_ssh_key_name = ""
+
+# Prefix used to name resources created by the terraform template
+basename         = "vpe-example"

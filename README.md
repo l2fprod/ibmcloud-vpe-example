@@ -18,7 +18,7 @@
 
 ## Test VPE
 
-The script `lookup.sh` iterates over all provisioned virtual server instances and does a `nslookup` to resolve the IP addresses of Redis, Object Storage and Key Protect.
+The script `lookup.sh` iterates over all provisioned virtual server instances and does a `dig` to resolve the IP addresses of Redis, Object Storage and Key Protect.
 
 In the first `apply`, VPE is not yet enabled, only cloud service endpoints are.
 

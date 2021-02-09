@@ -1,0 +1,29 @@
+name: ci
+
+on: [ push, pull_request ]
+
+jobs:
+  terraform_validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: prepare
+        run: |
+          echo "$HOME/.bin" >> $GITHUB_PATH
+          curl -L https://raw.githubusercontent.com/warrensbox/terraform-switcher/release/install.sh > /tmp/tfswitch-install.sh
+          chmod +x /tmp/tfswitch-install.sh
+          /tmp/tfswitch-install.sh -b $HOME/.bin
+      -
+        name: checkout
+        uses: actions/checkout@v2
+      -
+        name: get terraform
+        run: tfswitch -b $HOME/.bin/terraform
+      -
+        name: terraform init 
+        run: find . -type f -name "*.tf" -exec dirname {} \;|sort -u | while read m; do (cd "$m" && echo "$m - init" && terraform init -input=false -backend=false) || exit 1; done
+      -
+        name: terraform validate
+        run: find . -name ".terraform" -prune -o -type f -name "*.tf" -exec dirname {} \;|sort -u | while read m; do (cd "$m" && echo "$m - validate" && terraform validate && echo "√ $m") || exit 1 ; done
+      -
+        name: terraform fmt check
+        run: terraform fmt -list=true -write=false -check -recursive
