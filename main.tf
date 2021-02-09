@@ -235,6 +235,16 @@ output "endpoints" {
   value = local.endpoints
 }
 
+resource "time_sleep" "wait_for_redis_initialization" {
+  count = tobool(var.use_vpe) ? 1 : 0
+
+  depends_on = [
+    ibm_database.redis
+  ]
+
+  create_duration = "5m"
+}
+
 # and for each service, one gateway with one IP per subnet
 resource "ibm_is_virtual_endpoint_gateway" "vpe" {
   for_each = { for target in local.endpoints : target.name => target if tobool(var.use_vpe) }
@@ -258,4 +268,8 @@ resource "ibm_is_virtual_endpoint_gateway" "vpe" {
   }
 
   tags = var.tags
+
+  depends_on = [
+    time_sleep.wait_for_redis_initialization
+  ]
 }
