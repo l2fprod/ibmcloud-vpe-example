@@ -56,8 +56,7 @@ output "generated_ssh_key" {
 
 resource "ibm_is_ssh_key" "generated_key" {
   name           = "${var.basename}-${var.region}-key"
-  # https://github.com/IBM-Cloud/terraform-provider-ibm/issues/3639
-  public_key     = trimspace(tls_private_key.ssh.public_key_openssh)
+  public_key     = trimspace(tls_private_key.ssh.public_key_openssh) # https://github.com/IBM-Cloud/terraform-provider-ibm/issues/3639
   resource_group = local.resource_group_id
   tags           = var.tags
 }
