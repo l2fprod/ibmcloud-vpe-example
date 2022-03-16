@@ -5,7 +5,7 @@ variable "basename" { default = "vpe-example" }
 variable "resource_group_name" { default = "" }
 variable "tags" { default = ["terraform"] }
 variable "cidr_blocks" { default = ["10.20.10.0/24", "10.20.11.0/24", "10.20.12.0/24"] }
-variable "image_name" { default = "ibm-centos-8-2-minimal-amd64-2" }
+variable "image_name" { default = "ibm-rocky-linux-8-5-minimal-amd64-2" }
 variable "profile_name" { default = "cx2-2x4" }
 variable "vpc_ssh_key_name" { default = "" }
 variable "use_vpe" { default = false }
@@ -13,17 +13,15 @@ variable "use_vpe" { default = false }
 provider "ibm" {
   ibmcloud_api_key = var.ibmcloud_api_key
   region           = var.region
-  generation       = 2
   ibmcloud_timeout = var.ibmcloud_timeout
 }
 
 terraform {
-  required_version = ">= 0.14"
+  required_version = ">= 1.0"
 
   required_providers {
     ibm = {
-      source  = "IBM-Cloud/ibm"
-      version = ">= 1.17"
+      source = "IBM-Cloud/ibm"
     }
   }
 }
@@ -232,7 +230,8 @@ locals {
 }
 
 output "endpoints" {
-  value = local.endpoints
+  sensitive = true
+  value     = local.endpoints
 }
 
 resource "time_sleep" "wait_for_redis_initialization" {
